@@ -40,9 +40,9 @@ public class Java_Project {
 
             StringBuffer sb = result;
             try {
-                FileWriter fwriter = new FileWriter(fencrypt);
+                FileWriter fwriter = new FileWriter(fencrypt);//fwriter is pointing towards the encrypted .txt
                 BufferedWriter bwriter = new BufferedWriter(fwriter);
-                bwriter.write(sb.toString());
+                bwriter.write(sb.toString());//we write on the encrypted text
                 bwriter.close();
                 System.out.println("Also Caesar encryption has been written in encrypted.txt");
            
@@ -50,6 +50,7 @@ public class Java_Project {
                 System.out.println("\n Error at writing into encrypted file in Caesar Cipher");
                 e.printStackTrace();
             }
+            br.close();
 
         } 
         catch (Exception e) {
@@ -61,7 +62,7 @@ public class Java_Project {
 
     public static void Caesar_Decipher(File encryptedFile, File decryptedFile, int keyFile)  {
        try {
-        
+        //we write on the encrypted text
             StringBuffer result = new StringBuffer();
             File finput = new File("encrypted.txt"); // Creation of File Descriptor for input file
             FileReader fr = new FileReader(finput); // Creation of File Reader object
@@ -96,21 +97,24 @@ public class Java_Project {
             }
 
             System.out.println("Caesar Decipher applied Succesfully");
-            File fencrypt = new File("decrypted.txt");//open decrypted 
+            File fencrypt = new File("decrypted.txt");//open decrypted.txt file 
             
             StringBuffer sb = result;
             try {
-                FileWriter fwriter = new FileWriter(fencrypt);
+                FileWriter fwriter = new FileWriter(fencrypt);//fwriter is pointing towards decrypted .txt file 
                 BufferedWriter bwriter = new BufferedWriter(fwriter);
-                bwriter.write(sb.toString());
+                bwriter.write(sb.toString());//we write decrypted txt
                 bwriter.close();
                 System.out.println("Also Caesar decryption has been written in decrypted.txt");
 
             } catch (Exception e) {
                 System.out.println("\n Error at writing into decrypted file in Caesar Decipher");
                 e.printStackTrace();
-            }        
+            }  
+            br.close(); 
+
        } 
+
        catch (Exception e) {
             System.out.println("\n Error at reading file from encrypted file in Caesar Decipher");
             e.printStackTrace();
@@ -137,12 +141,14 @@ public class Java_Project {
                 char character = (char) c;
                 key += (character);
             }
+            br.close();
             
         } 
         catch (Exception e) {
             System.out.println("\n Error at Generating Key in Vigenere Cipher");
             e.printStackTrace();  
         }
+        
         return key;
      }
 
@@ -169,11 +175,11 @@ public class Java_Project {
     
             }
             System.out.println("Vigenere Cipher applied Succesfully");
-            File fencrypt = new File("encrypted.txt");//open the encrypted
+            File fencrypt = new File("encrypted.txt");//open the encrypted.txt file 
             try {
-                FileWriter fwriter = new FileWriter(fencrypt);
+                FileWriter fwriter = new FileWriter(fencrypt);//fwriter is pointing towards encrypted.txt
                 BufferedWriter bwriter = new BufferedWriter(fwriter);
-                bwriter.write(cipher_text);
+                bwriter.write(cipher_text);//writes encrypted text in the ifle
                 bwriter.close();
                 System.out.println("Also Vigenere encryption has been written in encrypted.txt");
             } catch (Exception e) {
@@ -181,6 +187,7 @@ public class Java_Project {
                 e.printStackTrace();
 
             }
+            br.close();
     
         } catch (Exception e) {
             System.out.println("\n Error at reading file from original file in Viginere Cipher");
@@ -212,15 +219,15 @@ public class Java_Project {
                 result.append(decyphered);
                 i++;
             }
+            br.close();
 
             System.out.println("Vigenere Decipher applied Succesfully");
-            File fencrypt = new File("decrypted.txt");//open decrypted
-            
+            File fencrypt = new File("decrypted.txt");//open decrypted.txt file
             StringBuffer sb = result;
             try {
-                FileWriter fwriter = new FileWriter(fencrypt);
+                FileWriter fwriter = new FileWriter(fencrypt);//fwriter points towards decrypted.txt
                 BufferedWriter bwriter = new BufferedWriter(fwriter);
-                bwriter.write(sb.toString());
+                bwriter.write(sb.toString());//we write it inside decrypted.txt
                 bwriter.close();
                 System.out.println("Also Vigenere decryption has been written in decrypted.txt");
 
@@ -228,7 +235,6 @@ public class Java_Project {
                 System.out.println("\n Error at writing into decrypted file in Vigenere Cipher");
                 e.printStackTrace();
             }
-
         } 
         catch (Exception e) {
             System.out.println("\n Error at reading file from encrypted file in Viginere Cipher");
@@ -276,17 +282,18 @@ public class Java_Project {
 
             StringBuffer sb = result;
             try {
-                FileWriter fwriter = new FileWriter(fencrypt);
+                FileWriter fwriter = new FileWriter(fencrypt);//fwriter is pointing towards the encrypted .txt
                 BufferedWriter bwriter = new BufferedWriter(fwriter);
-                bwriter.write(sb.toString());
+                bwriter.write(sb.toString());//we write on the encrypted text
                 bwriter.close();
                 System.out.println("Also Affline encryption has been written in encrypted.txt");
             } catch (Exception e) {
                 System.out.println("\n Error at writing into encrypted file in Affline Cipher");
                 e.printStackTrace();
             }
-
+            br.close();
         } 
+
         catch (Exception e) {
             System.out.println("\n Error at reading file from original file in Affine Cipher");
             e.printStackTrace();
@@ -313,15 +320,15 @@ public class Java_Project {
                 }
                 result.append(character);// Display the Character
             }
-
+            //we write on the encrypted text
             System.out.println("Affine Decipher applied Succesfully");
             File fencrypt = new File("decrypted.txt");//open decrypted.txt
             
             StringBuffer sb = result;
             try {
-                FileWriter fwriter = new FileWriter(fencrypt);
+                FileWriter fwriter = new FileWriter(fencrypt);//fwriter is pointing towards decrypted .txt file 
                 BufferedWriter bwriter = new BufferedWriter(fwriter);
-                bwriter.write(sb.toString());
+                bwriter.write(sb.toString());//we write decrypted txt
                 bwriter.close();
                 System.out.println("Also Affline decryption has been written in decrypted.txt");
 
@@ -329,6 +336,7 @@ public class Java_Project {
                 System.out.println("\n Error at writing into decrypted file in Affline Cipher");
                 e.printStackTrace();
             }
+            br.close();
         } 
         catch (Exception e) {
 
@@ -383,7 +391,7 @@ public class Java_Project {
             Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//Choosing an instance for cipher
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);//Setting Mode 
             String cip= Base64.getEncoder().encodeToString(cipher.doFinal(cipher_text.getBytes("UTF-8")));//Storing encrypted data
-            File fencrypt = new File("encrypted.txt");
+            File fencrypt = new File("encrypted.txt");//open the encrypted file to write data in
             System.out.println("AES Cipher applied Succesfully");
             try {
                 FileWriter fwriter = new FileWriter(fencrypt);
@@ -395,7 +403,7 @@ public class Java_Project {
                 System.out.println("\n Error at writing into encrypted file in AES Cipher");
                 e.printStackTrace();
             }
-    
+            br.close();
         } 
         catch (Exception e) {
             System.out.println("\n Error at reading file from original file in AES Cipher");
@@ -419,11 +427,11 @@ public class Java_Project {
                 cipher_text += character;
             }
             setKey(key);
-            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-            cipher.init(Cipher.DECRYPT_MODE, secretKey);
-            String cip=new String(cipher.doFinal(Base64.getDecoder().decode(cipher_text)));
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//get instance AES
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);//Setting mode
+            String cip=new String(cipher.doFinal(Base64.getDecoder().decode(cipher_text)));//Storing decrypted data
             System.out.println("AES Decipher applied Succesfully");
-            File fencrypt = new File("decrypted.txt");
+            File fencrypt = new File("decrypted.txt");//open decrypted .txt
 
             try {
                 FileWriter fwriter = new FileWriter(fencrypt);
@@ -435,7 +443,7 @@ public class Java_Project {
                 System.out.println("\n Error at writing into decrypted file in AES Decipher");
                 e.printStackTrace();
             }
-
+            br.close();
 
         } catch (Exception e) {
 
@@ -450,7 +458,7 @@ public class Java_Project {
     public static void Blowfish_Cipher(File inputFile, File outputFile,String key)throws Exception {
         try {
     
-            BlowfishdoCrypto(Cipher.ENCRYPT_MODE, inputFile, outputFile,key);
+            BlowfishdoCrypto(Cipher.ENCRYPT_MODE, inputFile, outputFile,key);//Select Mode=ENCRYPT 
             System.out.println("Blowfish Cipher applied Succesfully");    
         } 
         catch (Exception e) {
@@ -462,7 +470,7 @@ public class Java_Project {
 	public static void Blowfish_Decipher(File inputFile, File outputFile,String key) throws Exception {
         try {
     
-            BlowfishdoCrypto(Cipher.DECRYPT_MODE, inputFile, outputFile,key);
+            BlowfishdoCrypto(Cipher.DECRYPT_MODE, inputFile, outputFile,key);//Select Mode=DECRYPT
 	    	System.out.println("Blowfish Decipher applied Succesfully");
 
         } catch (Exception e) {
@@ -474,25 +482,29 @@ public class Java_Project {
 
 	public static void BlowfishdoCrypto(int cipherMode, File inputFile,File outputFile,String keyString) throws Exception {
         
-        String ALGORITHM = "Blowfish";    	
-        Key secretKey = new SecretKeySpec(keyString.getBytes(), ALGORITHM);
-		Cipher cipher = Cipher.getInstance(ALGORITHM);
-		cipher.init(cipherMode, secretKey);
+        String ALGORITHM = "Blowfish";//It's used in secret key    	
+        Key secretKey = new SecretKeySpec(keyString.getBytes(), ALGORITHM);//Making S blocks
+		Cipher cipher = Cipher.getInstance(ALGORITHM);//getting them in p arrays
+		cipher.init(cipherMode, secretKey);// recreating the cipher or randomly set the IV yourself for each subsequent message
 
         try {
         
             FileInputStream inputStream = new FileInputStream(inputFile);
 		    byte[] inputBytes = new byte[(int) inputFile.length()];
 		    inputStream.read(inputBytes);
+            //reading data in input file 
 
-		    byte[] outputBytes = cipher.doFinal(inputBytes);
+            byte[] outputBytes = cipher.doFinal(inputBytes);
+            // do final reset the internal state to the same IV you started with
+            //We do encryption based on bytes in Blowfish
 
 		    FileOutputStream outputStream = new FileOutputStream(outputFile);
 		    outputStream.write(outputBytes);
-
+            //we are writing the data in the file 
             System.out.println("\n Also Blowfish cipher as been written to encrypted.txt & Decipher has been written to decrypted.txt");
-		    inputStream.close();
-		    outputStream.close();
+            inputStream.close();
+            outputStream.close();
+            
         } 
         catch (Exception e) {
 
@@ -519,7 +531,7 @@ public class Java_Project {
     public static void DES_Encrypt(String key, InputStream is, OutputStream os) throws Throwable {
         try {
             
-            encryptOrDecrypt(key, Cipher.ENCRYPT_MODE, is, os);
+            encryptOrDecrypt(key, Cipher.ENCRYPT_MODE, is, os);//Select Mode =ENCRYPT
             System.out.println("DES Encryption Done");
         } catch (Exception e) {
             System.out.println("Error at Reading original.txt");
@@ -528,7 +540,7 @@ public class Java_Project {
 
 	public static void DES_Decrypt(String key, InputStream is, OutputStream os) throws Throwable {
         try {
-            encryptOrDecrypt(key, Cipher.DECRYPT_MODE, is, os);
+            encryptOrDecrypt(key, Cipher.DECRYPT_MODE, is, os);//Select Mode =DECRYPT
             System.out.println("DES Decryption Done");
         } catch (Exception e) {
             System.out.println("Error at Reading encrypted.txt");
@@ -578,7 +590,7 @@ public class Java_Project {
             File encryptedFile = new File("encrypted.txt");
             try {
                 System.out.println("\n Choice for Ciphers :\t1 Caesar Cipher \t2 Vigenère Cipher \t3 Affine Cipher");
-                System.out.println("\n Choice for In built Ciphers  :\t4 AES Cipher \t5 BlowFish Cipher");
+                System.out.println("\n Choice for In built Ciphers  :\t4 AES Cipher \t5 BlowFish Cipher \t6 DES Cipher");
                 // WE are using only symmetric Ciphers as decoding them is completely easy due
                 // to computational power required by decryption
 
@@ -587,7 +599,7 @@ public class Java_Project {
                     int key;
                     System.out.println("\n Caesar Cipher , Please Enter the Key (Int) ");
                     key = sc.nextInt();
-                    Caesar_Cipher(inputFile, encryptedFile, key);
+                    Caesar_Cipher(inputFile, encryptedFile, key);//Call Caesar Function
                 }
                 if (encryption_choice == 2) {
 
@@ -646,7 +658,7 @@ public class Java_Project {
 
             try {
                 System.out.println("\n Choice for Deciphers :\t1 Caesar Decipher \t2 Vigenère Decipher \t3 Affine Decipher");
-                System.out.println("\n Choice for In built Deciphers  :\t4 AES Decipher \t5 BlowFish Decipher");
+                System.out.println("\n Choice for In built Deciphers  :\t4 AES Decipher \t5 BlowFish Decipher \t6 DES Decipher");
                 int decryption_choice = sc.nextInt();
                 if (decryption_choice == 1) {
                     int key;
