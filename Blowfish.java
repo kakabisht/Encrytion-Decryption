@@ -8,57 +8,66 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Blowfish {
-	
-	private static final String ALGORITHM = "Blowfish";
-	private static String keyString = "DesireSecretKey";
 
-	public static void encrypt(File inputFile, File outputFile)
-			throws Exception {
-		doCrypto(Cipher.ENCRYPT_MODE, inputFile, outputFile);
-		System.out.println("File encrypted successfully!");
-	}
-
-	public static void decrypt(File inputFile, File outputFile)
-			throws Exception {
-		doCrypto(Cipher.DECRYPT_MODE, inputFile, outputFile);
-		System.out.println("File decrypted successfully!");
-	}
-
-	private static void doCrypto(int cipherMode, File inputFile,
-			File outputFile) throws Exception {
-
-		Key secretKey = new SecretKeySpec(keyString.getBytes(), ALGORITHM);
-		Cipher cipher = Cipher.getInstance(ALGORITHM);
-		cipher.init(cipherMode, secretKey);
-
-		FileInputStream inputStream = new FileInputStream(inputFile);
-		byte[] inputBytes = new byte[(int) inputFile.length()];
-		inputStream.read(inputBytes);
-
-		byte[] outputBytes = cipher.doFinal(inputBytes);
-
-		FileOutputStream outputStream = new FileOutputStream(outputFile);
-		outputStream.write(outputBytes);
-
-		inputStream.close();
-		outputStream.close();
-
-	}
-
-	public static void main(String[] args) {
-		
-		File inputFile = new File("original.txt");
-		File encryptedFile = new File("encrypted.txt");
-		
-		File decryptedFile = new File("decrypted.txt");
-
+	public void Blowfish_Cipher(File inputFile, File outputFile, String key) throws Exception {
 		try {
-			Blowfish.encrypt(inputFile, encryptedFile);
-			Blowfish.decrypt(encryptedFile, decryptedFile);
+
+			BlowfishdoCrypto(Cipher.ENCRYPT_MODE, inputFile, outputFile, key);// Select Mode=ENCRYPT
+			System.out.println("Blowfish Cipher applied Succesfully");
 		} catch (Exception e) {
+			System.out.println("\n Error at reading file from original file in Blowfish Cipher");
 			e.printStackTrace();
 		}
-		
-		
 	}
+
+	public void Blowfish_Decipher(File inputFile, File outputFile, String key) throws Exception {
+		try {
+
+			BlowfishdoCrypto(Cipher.DECRYPT_MODE, inputFile, outputFile, key);// Select Mode=DECRYPT
+			System.out.println("Blowfish Decipher applied Succesfully");
+
+		} catch (Exception e) {
+			System.out.println("\n Error at reading file from encrypted file in Blowfish Decipher");
+			e.printStackTrace();
+
+		}
+	}
+
+	public static void BlowfishdoCrypto(int cipherMode, File inputFile, File outputFile, String keyString)
+			throws Exception {
+
+		String ALGORITHM = "Blowfish";// It's used in secret key
+		Key secretKey = new SecretKeySpec(keyString.getBytes(), ALGORITHM);// Making S blocks
+		Cipher cipher = Cipher.getInstance(ALGORITHM);// getting them in p arrays
+		cipher.init(cipherMode, secretKey);// recreating the cipher or randomly set the IV yourself for each subsequent
+											// message
+
+		try {
+
+			FileInputStream inputStream = new FileInputStream(inputFile);
+			byte[] inputBytes = new byte[(int) inputFile.length()];
+			inputStream.read(inputBytes);
+			// reading data in input file
+
+			byte[] outputBytes = cipher.doFinal(inputBytes);
+			// do final reset the internal state to the same IV you started with
+			// We do encryption based on bytes in Blowfish
+
+			FileOutputStream outputStream = new FileOutputStream(outputFile);
+			outputStream.write(outputBytes);
+			// we are writing the data in the file
+			System.out.println(
+					"\n Also Blowfish cipher as been written to encrypted.txt & Decipher has been written to decrypted.txt");
+			inputStream.close();
+			outputStream.close();
+
+		} catch (Exception e) {
+
+			System.out.println("\n Error at writing file  in Blowfish Cipher / Decipher");
+			e.printStackTrace();
+
+		}
+
+	}
+
 }

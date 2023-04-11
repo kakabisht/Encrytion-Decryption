@@ -1,86 +1,110 @@
-import java.util.*;
+import java.io.*;
 
+class CaesarCipher {
 
-class CaesarCipher 
-{ 
+    // Encrypts text using a shift od s
 
-    // Encrypts text using a shift od s 
-    public static String encrypt(String text, int key)
-    //text is the String to encrypt & key is keyword 
-    { 
-        StringBuffer result= new StringBuffer(); 
-  
-        for (int i=0; i<text.length(); i++) 
-        { 
-             //Case for Uppercase alphabets 
-            if (Character.isUpperCase(text.charAt(i))) 
-            { 
-                char ch = (char)(((int)text.charAt(i) + 
-                                  key - 65) % 26 + 65); 
-                result.append(ch); 
-            } 
-            //Case for Lowercase alphabets
-            else
-            { 
-                char ch = (char)(((int)text.charAt(i) + 
-                                  key - 97) % 26 + 97); 
-                result.append(ch); 
-            } 
-        } 
-        System.out.println("Encrypted Message = " + result);
-        return result.toString();
+    public void Caesar_Cipher(File inputFile, File encryptedFile, int keyFile) {
+        try {
 
-    } 
-
-    public static void decrypt(String message, int key) 
-    {
-        char ch;
-        String decryptedMessage="";
-		for(int i = 0; i < message.length(); ++i){
-			ch = message.charAt(i);
-			//for Lower case aplhabets
-			if(ch >= 'a' && ch <= 'z'){
-	            ch = (char)(ch - key);
-	            
-	            if(ch < 'a'){
-	                ch = (char)(ch + 'z' - 'a' + 1);
-	            }
-	            
-	            decryptedMessage += ch;
+            StringBuffer result = new StringBuffer();// String buffer to store the result of the value
+            File finput = new File("original.txt"); // Creation of File Descriptor for input file
+            FileReader fr = new FileReader(finput); // Creation of File Reader object
+            BufferedReader br = new BufferedReader(fr); // Creation of BufferedReader object
+            int c = 0;
+            while ((c = br.read()) != -1) // Read char by Char
+            {
+                char character = (char) c; // converting integer to char
+                // Algorithm for Caesar Cipher
+                if (Character.isUpperCase(character)) {
+                    char ch = (char) (((int) character + keyFile - 65) % 26 + 65);
+                    result.append(ch);
+                } else {
+                    char ch = (char) (((int) character + keyFile - 97) % 26 + 97);
+                    result.append(ch);
+                }
             }
-            //for Upper alphabets 
-	        else if(ch >= 'A' && ch <= 'Z'){
-	            ch = (char)(ch - key);
-	            
-	            if(ch < 'A'){
-	                ch = (char)(ch + 'Z' - 'A' + 1);
-	            }
-	            
-	            decryptedMessage += ch;
-	        }
-	        else {
-	        	decryptedMessage += ch;
-	        }
-		}
-		
-		System.out.println("Decrypted Message = " + decryptedMessage);
-	}
+            System.out.println("Caesar Cipher applied Succesfully");
+            File fencrypt = new File("encrypted.txt");// open the encrypted file to write data in
 
-		
-		
-  
-    // Driver code 
-    public static void main(String[] args) 
-    { 
-        Scanner sc = new Scanner(System.in);
-        System.out.println("\n Enter Text to encrypt & it's Key");
-        String text= sc.next();
-        int key=sc.nextInt();
-        System.out.println("Text  : " + text); 
-        System.out.println("Shift : " + key);
-        System.out.println("\n Encryption");
-        String encrypt_text=encrypt(text, key);
-        System.out.println("\n Decryption");
-        decrypt(encrypt_text, key);
-    } 
+            StringBuffer sb = result;
+            try {
+                FileWriter fwriter = new FileWriter(fencrypt);// fwriter is pointing towards the encrypted .txt
+                BufferedWriter bwriter = new BufferedWriter(fwriter);
+                bwriter.write(sb.toString());// we write on the encrypted text
+                bwriter.close();
+                System.out.println("Also Caesar encryption has been written in encrypted.txt");
+
+            } catch (Exception e) {
+                System.out.println("\n Error at writing into encrypted file in Caesar Cipher");
+                e.printStackTrace();
+            }
+            br.close();
+
+        } catch (Exception e) {
+            System.out.println("\n Error at reading file from original file in Caesar Cipher");
+            e.printStackTrace();
+
+        }
+    }
+
+    public void Caesar_Decipher(File encryptedFile, File decryptedFile, int keyFile) {
+        try {
+            // we write on the encrypted text
+            StringBuffer result = new StringBuffer();
+            File finput = new File("encrypted.txt"); // Creation of File Descriptor for input file
+            FileReader fr = new FileReader(finput); // Creation of File Reader object
+            BufferedReader br = new BufferedReader(fr); // Creation of BufferedReader object
+            int c = 0;
+            while ((c = br.read()) != -1) // Read char by Char
+            {
+                char character = (char) c; // converting integer to char
+                // Algorithm for Caesar-Decipher
+                if (character >= 'a' && character <= 'z') {
+                    char ch = (char) (character - keyFile);
+
+                    if (ch < 'a') {
+                        ch = (char) (ch + 'z' - 'a' + 1);
+                    }
+                    result.append(ch);
+
+                } else if (character >= 'A' && character <= 'Z') {
+                    char ch = (char) (character - keyFile);
+
+                    if (ch < 'A') {
+                        ch = (char) (ch + 'Z' - 'A' + 1);
+                    }
+                    result.append(ch);
+
+                } else {
+                    result.append(character);
+                }
+            }
+
+            System.out.println("Caesar Decipher applied Succesfully");
+            File fencrypt = new File("decrypted.txt");// open decrypted.txt file
+
+            StringBuffer sb = result;
+            try {
+                FileWriter fwriter = new FileWriter(fencrypt);// fwriter is pointing towards decrypted .txt file
+                BufferedWriter bwriter = new BufferedWriter(fwriter);
+                bwriter.write(sb.toString());// we write decrypted txt
+                bwriter.close();
+                System.out.println("Also Caesar decryption has been written in decrypted.txt");
+
+            } catch (Exception e) {
+                System.out.println("\n Error at writing into decrypted file in Caesar Decipher");
+                e.printStackTrace();
+            }
+            br.close();
+
+        }
+
+        catch (Exception e) {
+            System.out.println("\n Error at reading file from encrypted file in Caesar Decipher");
+            e.printStackTrace();
+
+        }
+
+    }
 }
